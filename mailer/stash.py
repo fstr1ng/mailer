@@ -1,6 +1,16 @@
-class SaveLoader:
-    def __init__(self):
-        pass
+from .mail import Mail
+
+class Stash:
+    def __init__(self, config=None, mails=None):
+        self.config = config or {}
+        self.mails = mails or []
+
+    def create(self, headers):
+        mail = Mail(self.config['default_mail'].update(headers))
+        self.mails.append(mail)
+
+    def get(self, uuid):
+        return filter(lambda mail: mail.uuid == uuid, self.mails)
 
     def readMailData(self):
         with open(self.path, "r") as data_file:

@@ -1,0 +1,8 @@
+{
+    "sendmail_path": "exim -t -i",
+    "default_mail": {
+        "subject": "Subject",
+        "text": "Mail text"
+    }
+}
+

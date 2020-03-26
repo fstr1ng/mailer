@@ -1,6 +1,9 @@
 from getpass import getuser
 from socket import gethostname
 from mimetypes import guess_type
+from dataclasses import dataclass, field
+from typing import List
+from uuid import uuid4
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -12,8 +15,6 @@ from email.mime.base import MIMEBase
 from email.utils import formatdate
 from email import encoders
 
-from dataclasses import dataclass, field
-from typing import List
 
 known_types = {
     'text': MIMEText,
@@ -41,19 +42,20 @@ def create_attachment(path):
 
 @dataclass
 class Mail:
-    subject: str = "Mail subject"
-    text: str = "Mail text"
+    uuid: str = str(uuid4())
+    subject: str = 'Mail subject'
+    text: str = 'Mail text' 
     html: str = None
-    mail_from: str = f"{getuser()}@{gethostname()}"
+    mail_from: str = f'{getuser()}@{gethostname()}'
     mail_to: List[int] = field(default_factory=list)
     attachments: List[str] = field(default_factory=list)
 
     def __str__(self):
         email = MIMEMultipart()
-        email["Subject"] = self.subject
-        email["From"] = self.mail_from
-        email["To"] = ", ".join(self.mail_to)
-        email["Date"] = formatdate(localtime=True)
+        email['Subject'] = self.subject
+        email['From'] = self.mail_from
+        email['To'] = ', '.join(self.mail_to)
+        email['UUID'] = self.uuid
 
         if self.text:
             email.attach(MIMEText(self.text, 'plain'))

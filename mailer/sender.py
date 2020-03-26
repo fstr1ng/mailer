@@ -1,10 +1,12 @@
 import subprocess
+import shlex
+
 
 class Sender:
-    def __init__(self, emails=None):
-        self.emails = emails or []
+    def __init__(self, config=None):
+        self.config = config or {}
 
     def send(self, email) -> int:
-        print(str(email))
-        proc = subprocess.run(["exim", "-i", "-t"], text=True, input=str(email))
+        subcommands = shlex.split(self.config['sendmail_path'])
+        proc = subprocess.run(subcommands, text=True, input=str(email))
         return proc.returncode
