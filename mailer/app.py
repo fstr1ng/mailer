@@ -1,10 +1,10 @@
 from .mail import Mail
-from .mailer import Mailer
+from .sender import Sender
 
 def main():
-    email = Mail(mail_to=['m.fedoseev@sprinthost.ru'])
-    mailer = Mailer()
-    mailer.send(email)
+    mail = Mail(mail_to=['m.fedoseev@sprinthost.ru'])
+    sender = Sender()
+    sender.send(mail)
 
 
 if __name__ == '__main__':

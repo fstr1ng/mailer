@@ -1,6 +1,6 @@
 import subprocess
 
-class Mailer:
+class Sender:
     def __init__(self, emails=None):
         self.emails = emails or []
 
