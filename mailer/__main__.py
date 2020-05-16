@@ -14,7 +14,7 @@ def main():
     stash = Stash(config=config)
 
     stash.create({
-        'mail_to': 'm.fedoseev@sprinthost.ru',
+        'mail_to': 'mailbox@domain.com',
         'text': 'Hello!'
     })
     print(stash.mails)
